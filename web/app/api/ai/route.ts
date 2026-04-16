@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+let _groq: Groq | null = null;
+function getGroqClient() {
+  if (!_groq) {
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey && process.env.NODE_ENV === 'production') {
+      // During build, Vercel might not have the key yet if not configured correctly, 
+      // but we shouldn't fail the build here. The POST handler handles runtime checks.
+    }
+    _groq = new Groq({
+      apiKey: apiKey || "MISSING_KEY",
+    });
+  }
+  return _groq;
+}
 
 // Domain context for AI refinement
 const DOMAIN_CONTEXT: Record<string, string> = {
@@ -61,7 +72,7 @@ async function generateOptimizedQuery(
   `;
 
   try {
-    const result = await groq.chat.completions.create({
+    const result = await getGroqClient().chat.completions.create({
       model: "llama-3.1-70b-versatile",
       messages: [
         {
@@ -124,7 +135,7 @@ async function refineVideoRecommendations(
   `;
 
   try {
-    const result = await groq.chat.completions.create({
+    const result = await getGroqClient().chat.completions.create({
       model: "llama-3.1-70b-versatile",
       messages: [
         {
