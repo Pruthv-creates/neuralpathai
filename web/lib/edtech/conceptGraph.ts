@@ -35,6 +35,7 @@ export interface QuestionResult {
 import { QuestionAnalysis } from "@/lib/rag";
 
 export interface AnalysisResult {
+  domain?: string; // 🔥 Added
   weakTopics: string[];
   mediumTopics: string[];
   strongTopics: string[];
@@ -293,6 +294,7 @@ export function analyzePerformance(
   });
 
   return {
+    domain, // 🔥 Added
     weakTopics,
     mediumTopics,
     strongTopics,

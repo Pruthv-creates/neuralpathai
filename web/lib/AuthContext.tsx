@@ -5,6 +5,8 @@ import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
+import { AnalysisResult, TopicScore } from '@/lib/edtech/conceptGraph';
+
 export interface UserProfile {
   uid: string;
   email: string;
@@ -24,11 +26,11 @@ export interface UserProfile {
   activityLog?: Record<string, number>;      // { "YYYY-MM-DD": sessionCount }
   topicMastery?: Record<string, Record<string, number>>; // { domain: { topic: score_0_100 } }
   domainStageProgress?: Record<string, { completedStages: number }>;
-  latestAnalysis?: unknown; // AnalysisResult
-  latestScores?: Record<string, unknown>; // Record<string, TopicScore>
-  sessionHistory?: unknown[];             // last 15 attempts
-  createdAt?: unknown;
-  lastActive?: unknown;
+  latestAnalysis?: AnalysisResult | null; 
+  latestScores?: Record<string, TopicScore>; 
+  sessionHistory?: any[];             // last 15 attempts
+  createdAt?: any;
+  lastActive?: any;
 }
 
 interface AuthContextType {

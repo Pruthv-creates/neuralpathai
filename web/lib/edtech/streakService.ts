@@ -1,6 +1,6 @@
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { TopicScore } from "./conceptGraph";
+import { TopicScore, AnalysisResult } from "./conceptGraph";
 
 /**
  * Called after every completed quiz session.
@@ -15,7 +15,7 @@ export async function recordSession(
   uid: string, 
   domain?: string, 
   newScores?: Record<string, TopicScore>,
-  analysis?: unknown,
+  analysis?: AnalysisResult | null,
   stage?: number
 ): Promise<void> {
   const ref = doc(db, "users", uid);

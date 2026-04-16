@@ -219,8 +219,8 @@ export default function Home() {
         {screen === "results" && (
           <MainDashboard
             uid={user?.uid}
-            analysis={analysis || profile?.latestAnalysis}
-            scores={Object.keys(scores).length > 0 ? scores : (profile?.latestScores || {})}
+            analysis={(analysis || profile?.latestAnalysis) as AnalysisResult}
+            scores={(Object.keys(scores).length > 0 ? scores : (profile?.latestScores || {})) as Record<string, TopicScore>}
             domain={domain || (profile?.latestAnalysis?.domain || "DSA")}
             sessionHistory={profile?.sessionHistory}
             onRestart={handleRestart}
@@ -232,8 +232,8 @@ export default function Home() {
 
         {screen === "simulation" && (
           <SimulationMode
-            originalAnalysis={analysis || profile?.latestAnalysis}
-            originalScores={Object.keys(scores).length > 0 ? scores : (profile?.latestScores || {})}
+            originalAnalysis={(analysis || profile?.latestAnalysis) as AnalysisResult}
+            originalScores={(Object.keys(scores).length > 0 ? scores : (profile?.latestScores || {})) as Record<string, TopicScore>}
             domain={domain || (profile?.latestAnalysis?.domain || "DSA")}
             onBack={() => navigate("results")}
             onPractice={() => navigate("coding-lab")}
