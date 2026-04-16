@@ -218,11 +218,9 @@ export default function Home() {
 
         {screen === "results" && (
           <MainDashboard
-            uid={user?.uid}
             analysis={(analysis || profile?.latestAnalysis) as AnalysisResult}
             scores={(Object.keys(scores).length > 0 ? scores : (profile?.latestScores || {})) as Record<string, TopicScore>}
             domain={domain || (profile?.latestAnalysis?.domain || "DSA")}
-            sessionHistory={profile?.sessionHistory}
             onRestart={handleRestart}
             onSimulate={() => navigate("simulation")}
             onPractice={() => navigate(domain === "Web Dev" ? "web-sandbox" : "sandbox")}
