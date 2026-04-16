@@ -1,0 +1,20 @@
+# FastAPI & server
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+
+# Data & ORM
+sqlalchemy>=2.0.25
+pydantic>=2.5.0
+
+# RAG / embeddings
+chromadb>=0.4.22
+sentence-transformers>=2.3.0
+
+# Local LM
+ollama>=0.1.7
+
+# Groq (Extreme speed primary intelligence)
+groq>=0.4.2
+
+# Firebase / Firestore (structured user data)
+firebase-admin>=6.2.0
